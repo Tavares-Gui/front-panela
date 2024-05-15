@@ -1,13 +1,21 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
+export const PageWrapper = styled.div`
+    background-color: #E7E7E7;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+`;
+
 export const Navbar = styled.nav`
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
     background-color: #2D4D60;
-    width: 100%;
+    min-width: 100vw;
+    height: 50px;
 `;
 
 export const LogoContainer = styled.div`
@@ -18,6 +26,10 @@ export const LogoContainer = styled.div`
 
 export const ImgLogo = styled.img`
     width: 80px;
+`;
+
+export const H2 = styled.h2`
+    color: white;
 `;
 
 export const NavLinks = styled.div`
@@ -32,7 +44,12 @@ export const NavLink = styled(Link)`
 `;
 
 export const DivTitle = styled.div`
-    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    width: 100%;
 `;
 
 export const H1 = styled.h1`
@@ -44,29 +61,75 @@ export const H4 = styled.h4`
 `;
 
 export const ButtonAdd = styled.button`
-    
+    background-color: #E7E7E7;
+    border: none;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.5s;
+
+    &:hover {
+        scale: 1.05;
+    }
 `;
 
 export const ButtonIcon = styled.img`
-    
+    height: 48px;
 `;
 
 export const DivCards = styled.div`
-    
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
 `;
 
 export const Card = styled.div`
-    
+    height: 180px;
+    width: 400px;
+    border-radius: 20px;
+    padding: 10px;
+    background-color: white;
+`;
+
+export const CardTittle = styled.div`
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
 `;
 
 export const H2Card = styled.h2`
     
 `;
 
+export const ButtonIcons = styled.button`
+    border: none;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+`;
+
 export const CardIcons = styled.img`
+    height: 32px;
+    width: 32px;
+`;
+
+export const P = styled.p`
     
 `;
 
 export const CardButton = styled.button`
-    
+    border: 2px solid transparent;
+    min-width: 100%;
+    border-radius: 20px;
+    transition: border-color 0.5s;
+
+    &:hover {
+        border-color: gray;
+    }
 `;
