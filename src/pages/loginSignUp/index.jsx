@@ -16,8 +16,10 @@ import {
 import Bg from '../../assets/img/bglogin.png'
 import Logo from '../../assets/img/logo.png'
 
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
+
+import axios from 'axios';
 
 export default function LoginSignUp() {
     const navigate = useNavigate();
@@ -26,6 +28,50 @@ export default function LoginSignUp() {
     var [email, setEmail] = useState('');
     var [password, setPassword] = useState('');
     var [confirmPassword, setConfirmPassword] = useState('');
+
+    async function handleLogin(e)
+    {
+        e.preventDefault();
+    
+        const json =
+        {
+            email,
+            password
+        }
+
+        try {
+            var res = await axios.post('https://back-panela.vercel.app/', json)
+            console.log(res.data)
+            sessionStorage.setItem("userId", res.data.userId);
+            // navigate('/home')
+        } catch (error) {
+            alert(error.response.data.message)
+        }
+    }
+
+    async function handleRegister(e)
+    {
+        e.preventDefault()
+
+        const json = 
+        {
+            name,
+            email,
+            password,
+            confirmPassword
+        }
+
+        try {
+            var res = await axios.post('https://back-panela.vercel.app/register', json)
+            alert(res.data.message)
+            setCards(0)
+            setEmail("")
+            setPassword("")
+        } catch (error) {
+            console.log(error)
+            alert(error.response.data.message)
+        }
+    }
 
     return (
         <>
@@ -46,7 +92,7 @@ export default function LoginSignUp() {
 
                             <PLogin>Não possui login? <ALogin onClick={() => setCards(1)}>Cadastre-se</ALogin></PLogin>
 
-                            <ButtonLogin>Entrar</ButtonLogin>
+                            <ButtonLogin onClick={handleLogin}>Entrar</ButtonLogin>
                         </FormLogin>
                     </DivLogin>
                 </ContainerLogin>
@@ -71,7 +117,7 @@ export default function LoginSignUp() {
 
                             <PSignUp>Já possui login? <ASignUp onClick={() => setCards(0)}>Entrar</ASignUp></PSignUp>
 
-                            <ButtonSignUp>Cadastrar</ButtonSignUp>
+                            <ButtonSignUp onClick={handleRegister}>Cadastrar</ButtonSignUp>
                         </FormSignUp>
                     </DivSignUp>
                 </ContainerSignUp>
