@@ -83,13 +83,14 @@ export const ButtonIcon = styled.img`
 
 export const DivCards = styled.div`
     display: flex;
-    justify-content: space-between;
-    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
 `;
 
 export const Card = styled.div`
+    flex-basis: calc(25% - 20px);
+    margin: 20px;
     height: 180px;
-    width: 400px;
     border-radius: 20px;
     padding: 10px;
     background-color: white;
