@@ -4,18 +4,21 @@ import { Link } from "react-router-dom";
 export const PageWrapper = styled.div`
     background-color: #E7E7E7;
     min-height: 100vh;
+    height: auto;
     display: flex;
     flex-direction: column;
+    overflow-x: hidden;
 `;
 
 export const Navbar = styled.nav`
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     align-items: center;
-    padding: 1rem 2rem;
+    padding: 2rem 6.5rem;
     background-color: #2D4D60;
-    min-width: 100vw;
+    width: 100vw;
     height: 50px;
+
 `;
 
 export const LogoContainer = styled.div`
