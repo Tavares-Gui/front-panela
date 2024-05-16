@@ -19,7 +19,7 @@ import Logo from '../../assets/img/logo.png'
 import React, { useState, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 
-import axios from 'axios';
+import { api } from '../../services/api.jsx'
 
 export default function LoginSignUp() {
     const navigate = useNavigate();
@@ -29,31 +29,30 @@ export default function LoginSignUp() {
     var [password, setPassword] = useState('');
     var [confirmPassword, setConfirmPassword] = useState('');
 
-    async function handleLogin(e)
+    function handleLogin(e)
     {
         e.preventDefault();
     
-        const json =
+        const jsonLogin =
         {
             email,
             password
         }
 
-        try {
-            var res = await axios.post('https://back-panela.vercel.app/', json)
-            console.log(res.data)
+        api.post("", jsonLogin).then((res) => {
+            console.log(res)
             sessionStorage.setItem("userId", res.data.userId);
             // navigate('/home')
-        } catch (error) {
+        }).catch((error) => {
             alert(error.response.data.message)
-        }
+        })
     }
 
-    async function handleRegister(e)
+    function handleRegister(e)
     {
         e.preventDefault()
 
-        const json = 
+        const jsonRegister = 
         {
             name,
             email,
@@ -61,16 +60,14 @@ export default function LoginSignUp() {
             confirmPassword
         }
 
-        try {
-            var res = await axios.post('https://back-panela.vercel.app/register', json)
+        api.post("/register", jsonRegister).then((res) => {
             alert(res.data.message)
             setCards(0)
             setEmail("")
             setPassword("")
-        } catch (error) {
-            console.log(error)
+        }).catch((error) => {
             alert(error.response.data.message)
-        }
+        })
     }
 
     return (
