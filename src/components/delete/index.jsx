@@ -15,7 +15,13 @@ const style = {
     textAlign: 'center',
 };
 
-export default function DeleteConfirmationModal({ open, handleClose, handleDelete }) {
+export default function DeleteConfirmationModal({ open, handleClose, props }) {
+
+    function handleDelete()
+    {
+        
+    }
+
     return (
         <Modal
             aria-labelledby="delete-confirmation-modal-title"
