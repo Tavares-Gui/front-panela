@@ -15,11 +15,22 @@ const style = {
     textAlign: 'center',
 };
 
+import { api } from '../../services/api.jsx'
+import { useNavigate } from "react-router-dom";
+
 export default function DeleteConfirmationModal({ open, handleClose, props }) {
+    const navigate = useNavigate();
 
     function handleDelete()
     {
-        
+        console.log(props)
+        api.delete("/recipe/delete", {"_id": props}).then((res) => {
+            console.log(res)
+            // alert(res)
+            handleClose()
+        }).catch((error) => {
+            alert(error.response.data.message)
+        })
     }
 
     return (

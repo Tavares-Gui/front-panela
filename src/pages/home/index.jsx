@@ -34,32 +34,42 @@ import { api } from '../../services/api.jsx'
 export default function Home() {
     const [openAddModal, setOpenAddModal] = useState(false);
     const [openViewModal, setOpenViewModal] = useState(false);
-    const [openDeleteModal, setOpenDeleteModal] = useState(false);
+    const [openDeleteModal, setOpenDeleteModal] = useState(false);  
+    const [loading, setLoading] = useState(false);  
 
     const handleOpenAddModal = () => setOpenAddModal(true);
     const handleCloseAddModal = () => setCloseAddModal(false);
 
-    const handleOpenViewModal = () => setOpenViewModal(true);
+    function handleOpenViewModal(index)
+    {
+        setOpenViewModal(true);
+        setModal(index)
+    }
     const handleCloseViewModal = () => setOpenViewModal(false);
 
     const handleOpenDeleteModal = () => setOpenDeleteModal(true);
     const handleCloseDeleteModal = () => setOpenDeleteModal(false);
     
     const [recipes, setRecipes] = useState([])
+    const [modal, setModal] = useState()
+    
 
     useEffect(() => {
         const userId = sessionStorage.getItem('userId')
         api.get(`/recipe?user=${userId}`).then((res) => {
-            console.log(res.data)
             setRecipes(res.data)
         }).catch((error) => {
             console.log(error)
         })
     }, [])
     
-    console.log(recipes, "1")
+    console.log(recipes)
+
     return (
         <>
+        {modal !== undefined && 
+            <ViewModal open={openViewModal} handleClose={handleCloseViewModal} props={recipes[modal]} close={() => setModal()}/>}
+            {/* <DeleteConfirmationModal open={openDeleteModal} handleClose={handleCloseDeleteModal} props={recipes[0]._id}/> */}
             <PageWrapper>
                 <Navbar>
                     <LogoContainer>
@@ -96,17 +106,14 @@ export default function Home() {
                                     {item.description}
                                 </P>
     
-                                <CardButton onClick={handleOpenViewModal}>
+                                <CardButton onClick={handleOpenViewModal(index)}>
                                     Ver Receita
                                 </CardButton>
-                                <ViewModal open={openViewModal} handleClose={handleCloseViewModal} props={item}/>
-                                <DeleteConfirmationModal open={openDeleteModal} handleClose={handleCloseDeleteModal} props={item._id}/>
                             </Card>
                         )
                     })}
                 </DivCards>
             </PageWrapper>
-
             <AddModal open={openAddModal} handleClose={handleCloseAddModal} />
         </>
     );

@@ -42,9 +42,9 @@ export default function ViewModal({ open, handleClose, props }) {
                         Ingredientes
                     </Typography>
                     <ul style={{ textAlign: 'left', listStylePosition: 'inside' }}>
-                        {props.ingredients.map((item) => {
+                        {props.ingredients.map((item, index) => {
                             return(
-                                <li>{item}</li>
+                                <li key={index}>{item}</li>
                             )
                         })}
                     </ul>
@@ -52,9 +52,9 @@ export default function ViewModal({ open, handleClose, props }) {
                         Modo de Preparo
                     </Typography>
                     <ul style={{ textAlign: 'left', listStylePosition: 'inside' }}>
-                        {props.prepare.map((item) => {
+                        {props.prepare.map((item, index) => {
                             return(
-                                <li>{item}</li>
+                                <li key={index}>{item}</li>
                             )
                         })}
                     </ul>
