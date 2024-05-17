@@ -14,6 +14,7 @@ import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
 import AddModal from '../../components/add/index.jsx'
+import EditModal from '../../components/edit/index.jsx'
 import ViewModal from '../../components/view/index.jsx'
 import DeleteConfirmationModal from '../../components/delete/index.jsx'
 
@@ -31,11 +32,15 @@ const style = {
 
 export default function Home() {
     const [openAddModal, setOpenAddModal] = useState(false);
+    const [openEditModal, setOpenEditModal] = useState(false);
     const [openViewModal, setOpenViewModal] = useState(false);
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
     const handleOpenAddModal = () => setOpenAddModal(true);
     const handleCloseAddModal = () => setOpenAddModal(false);
+
+    const handleOpenEditModal = () => setOpenEditModal(true);
+    const handleCloseEditModal = () => setOpenEditModal(false);
 
     const handleOpenViewModal = () => setOpenViewModal(true);
     const handleCloseViewModal = () => setOpenViewModal(false);
@@ -68,7 +73,7 @@ export default function Home() {
                     <Card>
                         <CardTittle>
                             <H2Card>Nome</H2Card>
-                            <ButtonIcons>
+                            <ButtonIcons onClick={handleOpenEditModal}>
                                 <CardIcons src={Edit}></CardIcons>
                             </ButtonIcons>
                             <ButtonIcons onClick={handleOpenDeleteModal}>
@@ -88,6 +93,7 @@ export default function Home() {
             </PageWrapper>
 
             <AddModal open={openAddModal} handleClose={handleCloseAddModal} />
+            <EditModal open={openEditModal} handleClose={handleCloseEditModal} />
             <ViewModal open={openViewModal} handleClose={handleCloseViewModal} />
             <DeleteConfirmationModal open={openDeleteModal} handleClose={handleCloseDeleteModal} />
         </>
