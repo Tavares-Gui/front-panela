@@ -115,6 +115,7 @@ export const LabelsLogin = styled.label `
     justify-content: flex-start;
     color: white;
     margin-top: 20px;
+    margin-left: 20px;
 `;
 
 export const LabelsSignUp = styled.label `
@@ -123,6 +124,7 @@ export const LabelsSignUp = styled.label `
     justify-content: flex-start;
     color: white;
     margin-top: 20px;
+    margin-left: 20px;
 `;
 
 // Inputs for login and sign up
@@ -183,10 +185,12 @@ export const ButtonLogin = styled.button `
     width: 50%;
     border-radius: 20px;
     border: none;
+    margin-top: 20px;
 `;
 
 export const ButtonSignUp = styled.button `
     width: 50%;
     border-radius: 20px;
     border: none;
+    margin-top: 20px;
 `;

@@ -2,7 +2,7 @@ import {
     PageWrapper,
     Navbar, LogoContainer, ImgLogo, H2, NavLinks, NavLink,
     DivTitle, H1, H4, ButtonAdd, ButtonIcon,
-    DivCards, Card, CardTittle, H2Card, ButtonIcons, CardIcons, P, CardButton,
+    DivCards, CardContent, Card, CardTittle, H2Card, ButtonIcons, CardIcons, P, CardButton,
 } from './styled.js'
 
 import Logo from '../../assets/img/logo.png'
@@ -35,7 +35,7 @@ export default function Home() {
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
     const handleOpenAddModal = () => setOpenAddModal(true);
-    const handleCloseAddModal = () => setCloseAddModal(false);
+    const handleCloseAddModal = () => setOpenAddModal(false);
 
     const handleOpenViewModal = () => setOpenViewModal(true);
     const handleCloseViewModal = () => setOpenViewModal(false);
@@ -65,196 +65,6 @@ export default function Home() {
                 </DivTitle>
 
                 <DivCards>
-                    <Card>
-                        <CardTittle>
-                            <H2Card>Nome</H2Card>
-                            <ButtonIcons>
-                                <CardIcons src={Edit}></CardIcons>
-                            </ButtonIcons>
-                            <ButtonIcons onClick={handleOpenDeleteModal}>
-                                <CardIcons src={Trash}></CardIcons>
-                            </ButtonIcons>
-                        </CardTittle>
-
-                        <P>
-                            Descrição
-                        </P>
-
-                        <CardButton onClick={handleOpenViewModal}>
-                            Ver Receita
-                        </CardButton>
-                    </Card>
-                    <Card>
-                        <CardTittle>
-                            <H2Card>Nome</H2Card>
-                            <ButtonIcons>
-                                <CardIcons src={Edit}></CardIcons>
-                            </ButtonIcons>
-                            <ButtonIcons onClick={handleOpenDeleteModal}>
-                                <CardIcons src={Trash}></CardIcons>
-                            </ButtonIcons>
-                        </CardTittle>
-
-                        <P>
-                            Descrição
-                        </P>
-
-                        <CardButton onClick={handleOpenViewModal}>
-                            Ver Receita
-                        </CardButton>
-                    </Card>
-                    <Card>
-                        <CardTittle>
-                            <H2Card>Nome</H2Card>
-                            <ButtonIcons>
-                                <CardIcons src={Edit}></CardIcons>
-                            </ButtonIcons>
-                            <ButtonIcons onClick={handleOpenDeleteModal}>
-                                <CardIcons src={Trash}></CardIcons>
-                            </ButtonIcons>
-                        </CardTittle>
-
-                        <P>
-                            Descrição
-                        </P>
-
-                        <CardButton onClick={handleOpenViewModal}>
-                            Ver Receita
-                        </CardButton>
-                    </Card>
-                    <Card>
-                        <CardTittle>
-                            <H2Card>Nome</H2Card>
-                            <ButtonIcons>
-                                <CardIcons src={Edit}></CardIcons>
-                            </ButtonIcons>
-                            <ButtonIcons onClick={handleOpenDeleteModal}>
-                                <CardIcons src={Trash}></CardIcons>
-                            </ButtonIcons>
-                        </CardTittle>
-
-                        <P>
-                            Descrição
-                        </P>
-
-                        <CardButton onClick={handleOpenViewModal}>
-                            Ver Receita
-                        </CardButton>
-                    </Card>
-                    <Card>
-                        <CardTittle>
-                            <H2Card>Nome</H2Card>
-                            <ButtonIcons>
-                                <CardIcons src={Edit}></CardIcons>
-                            </ButtonIcons>
-                            <ButtonIcons onClick={handleOpenDeleteModal}>
-                                <CardIcons src={Trash}></CardIcons>
-                            </ButtonIcons>
-                        </CardTittle>
-
-                        <P>
-                            Descrição
-                        </P>
-
-                        <CardButton onClick={handleOpenViewModal}>
-                            Ver Receita
-                        </CardButton>
-                    </Card>
-                    <Card>
-                        <CardTittle>
-                            <H2Card>Nome</H2Card>
-                            <ButtonIcons>
-                                <CardIcons src={Edit}></CardIcons>
-                            </ButtonIcons>
-                            <ButtonIcons onClick={handleOpenDeleteModal}>
-                                <CardIcons src={Trash}></CardIcons>
-                            </ButtonIcons>
-                        </CardTittle>
-
-                        <P>
-                            Descrição
-                        </P>
-
-                        <CardButton onClick={handleOpenViewModal}>
-                            Ver Receita
-                        </CardButton>
-                    </Card>
-                    <Card>
-                        <CardTittle>
-                            <H2Card>Nome</H2Card>
-                            <ButtonIcons>
-                                <CardIcons src={Edit}></CardIcons>
-                            </ButtonIcons>
-                            <ButtonIcons onClick={handleOpenDeleteModal}>
-                                <CardIcons src={Trash}></CardIcons>
-                            </ButtonIcons>
-                        </CardTittle>
-
-                        <P>
-                            Descrição
-                        </P>
-
-                        <CardButton onClick={handleOpenViewModal}>
-                            Ver Receita
-                        </CardButton>
-                    </Card>
-                    <Card>
-                        <CardTittle>
-                            <H2Card>Nome</H2Card>
-                            <ButtonIcons>
-                                <CardIcons src={Edit}></CardIcons>
-                            </ButtonIcons>
-                            <ButtonIcons onClick={handleOpenDeleteModal}>
-                                <CardIcons src={Trash}></CardIcons>
-                            </ButtonIcons>
-                        </CardTittle>
-
-                        <P>
-                            Descrição
-                        </P>
-
-                        <CardButton onClick={handleOpenViewModal}>
-                            Ver Receita
-                        </CardButton>
-                    </Card>
-                    <Card>
-                        <CardTittle>
-                            <H2Card>Nome</H2Card>
-                            <ButtonIcons>
-                                <CardIcons src={Edit}></CardIcons>
-                            </ButtonIcons>
-                            <ButtonIcons onClick={handleOpenDeleteModal}>
-                                <CardIcons src={Trash}></CardIcons>
-                            </ButtonIcons>
-                        </CardTittle>
-
-                        <P>
-                            Descrição
-                        </P>
-
-                        <CardButton onClick={handleOpenViewModal}>
-                            Ver Receita
-                        </CardButton>
-                    </Card>
-                    <Card>
-                        <CardTittle>
-                            <H2Card>Nome</H2Card>
-                            <ButtonIcons>
-                                <CardIcons src={Edit}></CardIcons>
-                            </ButtonIcons>
-                            <ButtonIcons onClick={handleOpenDeleteModal}>
-                                <CardIcons src={Trash}></CardIcons>
-                            </ButtonIcons>
-                        </CardTittle>
-
-                        <P>
-                            Descrição
-                        </P>
-
-                        <CardButton onClick={handleOpenViewModal}>
-                            Ver Receita
-                        </CardButton>
-                    </Card>
                     <Card>
                         <CardTittle>
                             <H2Card>Nome</H2Card>
