@@ -2,16 +2,20 @@ import './App.css';
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-import LoginSignUp from './pages/loginSignUp';
+import { AlertProvider } from './contexts/alert';
+
 import Home from './pages/home';
+import LoginSignUp from './pages/loginSignUp';
 
 function App() {
   return (
     <>
-      <Routes>
-        <Route path='/' element={<LoginSignUp />} />
-        <Route path='/home' element={<Home />} />
-      </Routes>
+      <AlertProvider>
+        <Routes>
+          <Route path='/' element={<LoginSignUp />} />
+          <Route path='/home' element={<Home />} />
+        </Routes>
+      </AlertProvider>
     </>
   );
 }
