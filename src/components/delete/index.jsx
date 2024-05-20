@@ -18,13 +18,13 @@ const style = {
 import { api } from '../../services/api.jsx'
 import { useNavigate } from "react-router-dom";
 
-export default function DeleteConfirmationModal({ open, handleClose, props }) {
+export default function DeleteConfirmationModal({ open, handleClose, props, onDelete }) {
     const navigate = useNavigate();
 
-    function handleDelete()
+    function handleDelete(batata)
     {
-        console.log(props)
-        api.delete("/recipe/delete", {"_id": props}).then((res) => {
+        console.log(batata)
+        api.delete("/recipe/delete", { data: { "_id": batata } }).then((res) => {
             console.log(res)
             // alert(res)
             handleClose()
@@ -32,6 +32,15 @@ export default function DeleteConfirmationModal({ open, handleClose, props }) {
             alert(error.response.data.message)
         })
     }
+
+    // const handleDelete = (recipeId) => {
+    //     api.delete("/recipe/delete", { data: { _id: recipeId } }).then((res) => {
+    //         onDelete(recipeId);
+    //         handleClose();
+    //     }).catch((error) => {
+    //         alert(error.response.data.message);
+    //     });
+    // };
 
     return (
         <Modal
@@ -50,7 +59,7 @@ export default function DeleteConfirmationModal({ open, handleClose, props }) {
                     <Typography variant="h4" id="delete-confirmation-modal-title" gutterBottom>
                         Tem certeza que gostaria de excluir esta receita?
                     </Typography>
-                    <Button variant="contained" color="error" onClick={handleDelete}>
+                    <Button variant="contained" color="error" onClick={() => handleDelete(props._id)}>
                         Excluir Receita
                     </Button>
                 </Box>

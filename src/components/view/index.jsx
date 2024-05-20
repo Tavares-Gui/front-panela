@@ -15,6 +15,7 @@ const style = {
 };
 
 export default function ViewModal({ open, handleClose, props }) {
+    console.log(props)
     return (
         <Modal
             aria-labelledby="transition-modal-title"
