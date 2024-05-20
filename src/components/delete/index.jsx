@@ -28,6 +28,7 @@ export default function DeleteConfirmationModal({ open, handleClose, props, onDe
             console.log(res)
             // alert(res)
             handleClose()
+            window.location.reload()
         }).catch((error) => {
             alert(error.response.data.message)
         })
