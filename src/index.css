@@ -8,6 +8,24 @@
   box-sizing: border-box;
 }
 
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #bfbfbf;
+  border-radius: 4px;
+}
+ 
+::-webkit-scrollbar-thumb {
+  background: #969696;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #7b7d7b;
+}
+
 button {
   border-radius: 8px;
   border: 1px solid transparent;

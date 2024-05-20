@@ -2,7 +2,7 @@ import {
     PageWrapper,
     Navbar, LogoContainer, ImgLogo, H2, NavLinks, NavLink,
     DivTitle, H1, H4, ButtonAdd, ButtonIcon,
-    DivCards, CardContent, Card, CardTittle, H2Card, ButtonIcons, CardIcons, P, CardButton,
+    DivCards, CardContent, Card, CardTittle, ButtonGroup, H2Card, ButtonIcons, CardIcons, P, CardButton,
 } from './styled.js'
 
 import Logo from '../../assets/img/logo.png'
@@ -73,12 +73,14 @@ export default function Home() {
                     <Card>
                         <CardTittle>
                             <H2Card>Nome</H2Card>
-                            <ButtonIcons onClick={handleOpenEditModal}>
-                                <CardIcons src={Edit}></CardIcons>
-                            </ButtonIcons>
-                            <ButtonIcons onClick={handleOpenDeleteModal}>
-                                <CardIcons src={Trash}></CardIcons>
-                            </ButtonIcons>
+                            <ButtonGroup>
+                                <ButtonIcons onClick={handleOpenEditModal}>
+                                    <CardIcons src={Edit}></CardIcons>
+                                </ButtonIcons>
+                                <ButtonIcons onClick={handleOpenDeleteModal}>
+                                    <CardIcons src={Trash}></CardIcons>
+                                </ButtonIcons>
+                            </ButtonGroup>
                         </CardTittle>
 
                         <P>

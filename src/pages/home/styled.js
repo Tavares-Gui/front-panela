@@ -107,10 +107,16 @@ export const CardContent = styled.div`
 export const CardTittle = styled.div`
     display: flex;
     justify-content: space-between;
+    align-items: center;
     flex-direction: row;
 `;
 
 export const H2Card = styled.h2``;
+
+export const ButtonGroup = styled.div`
+    display: flex;
+    gap: 0.5rem;
+`;
 
 export const ButtonIcons = styled.button`
     border: none;
