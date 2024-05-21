@@ -144,6 +144,8 @@ export const InputLogin = styled.input `
     border-radius: 20px;
     border: none;
     width: 75%;
+    padding-left: 10px;
+    padding-right: 10px;
 `;
 
 export const InputSignUp = styled.input `
@@ -151,6 +153,8 @@ export const InputSignUp = styled.input `
     border-radius: 20px;
     border: none;
     width: 75%;
+    padding-left: 10px;
+    padding-right: 10px;
 `;
 
 // Inputs for login and sign up
