@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Backdrop, Box, Modal, Fade, Typography, Button } from '@mui/material';
 
 import BtnAdd from '../../assets/icon/botao-adicionar.png'
+import BtnRemove from '../../assets/icon/sinal-de-menos.png'
 
 const styleModal = {
     position: 'absolute',
@@ -51,7 +52,8 @@ const styleTextDesc = {
 
 const styleDiv = {
     display: 'flex',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    textAlign: 'center'
 };
 
 const styleBtn = {
@@ -59,6 +61,25 @@ const styleBtn = {
         marginTop: 10,
         height: '48px',
         width: '48px',
+        border: 'none',
+        background: 'none',
+        padding: 0,
+        transition: 'transform 0.8s',
+        cursor: 'pointer',
+    },
+    buttonHover: {
+        transform: 'scale(1.1)',
+    }
+};
+
+const styleBtnRemove = {
+    button: {
+        marginTop: 0,
+        marginBottom: 0,
+        marginRight: 5,
+        marginLeft: 5,
+        height: '16px',
+        width: '16px',
         border: 'none',
         background: 'none',
         padding: 0,
@@ -101,6 +122,13 @@ export default function EditModal({ open, handleClose }) {
                             <Typography variant="h6" id="transition-modal-description" gutterBottom>
                                 Qtd.
                             </Typography>
+                            <button
+                                style={styleBtnRemove.button}
+                                onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
+                                onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                            >
+                                <img src={BtnRemove} alt="Botão de Remover" style={{ height: '100%', width: '100%' }} />
+                            </button>
                             <input type='number' style={{ ...styleInputQtd }}></input>
                         </div>
                         <div>
@@ -114,6 +142,13 @@ export default function EditModal({ open, handleClose }) {
                                 Modo de Preparo
                             </Typography>
                             <input type='text' style={{ ...styleInput }}></input>
+                            <button
+                                style={styleBtnRemove.button}
+                                onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
+                                onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                            >
+                                <img src={BtnRemove} alt="Botão de Rmover" style={{ height: '100%', width: '100%' }} />
+                            </button>
                         </div>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-around' }}>
