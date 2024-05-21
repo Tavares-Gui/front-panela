@@ -16,6 +16,15 @@ export const ImgBg = styled.img `
 
 const slideAnimation = keyframes `
     from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(100%);
+    }
+`;
+
+const slideAnimationToRight = keyframes `
+    from {
         transform: translateX(100%);
     }
     to {
@@ -31,8 +40,9 @@ export const ContainerLogin = styled.div `
     height: 100vh;
     width: 50vw;
     background-color: #2D4D60;
-    margin-left: ${({ isSignUp }) => (isSignUp ? "0" : "50vw")};
-    animation: ${({ isSignUp }) => (isSignUp ? slideAnimation : "")} 0.8s forwards;
+    margin-left: ${({ isSignUp }) => (isSignUp ? "50vw" : "0")};
+    animation: ${({ isSignUp }) => (isSignUp ? "" : slideAnimation)} 0.8s forwards;
+
 `;
     
 export const ContainerSignUp = styled.div `
@@ -41,8 +51,8 @@ export const ContainerSignUp = styled.div `
     height: 100vh;
     width: 50vw;
     background-color: #2D4D60;
-    margin-right: ${({ isSignUp }) => (isSignUp ? "50vw" : "0")};
-    animation: ${({ isSignUp }) => (isSignUp ? "" : slideAnimation)} 0.8s forwards;
+    margin-right: ${({ isSignUp }) => (isSignUp ? "0" : "50vw")};
+    animation: ${({ isSignUp }) => (isSignUp ? "" : slideAnimationToRight)} 0.8s forwards;
 `;
 
 // Divs of login and sign up
