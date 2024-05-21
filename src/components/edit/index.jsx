@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-
 import { Backdrop, Box, Modal, Fade, Typography, Button } from '@mui/material';
 
-import BtnAdd from '../../assets/icon/botao-adicionar.png'
-import BtnRemove from '../../assets/icon/sinal-de-menos.png'
+import BtnAdd from '../../assets/icon/botao-adicionar.png';
+import BtnRemove from '../../assets/icon/sinal-de-menos.png';
 
 const styleModal = {
     position: 'absolute',
@@ -92,6 +91,27 @@ const styleBtnRemove = {
 };
 
 export default function EditModal({ open, handleClose }) {
+    const [ingredients, setIngredients] = useState([{ quantity: '', name: '' }]);
+    const [preparations, setPreparations] = useState(['']);
+
+    const handleAddIngredient = () => {
+        setIngredients([...ingredients, { quantity: '', name: '' }]);
+    };
+
+    const handleRemoveIngredient = (index) => {
+        const newIngredients = ingredients.filter((_, i) => i !== index);
+        setIngredients(newIngredients);
+    };
+
+    const handleAddPreparation = () => {
+        setPreparations([...preparations, '']);
+    };
+
+    const handleRemovePreparation = (index) => {
+        const newPreparations = preparations.filter((_, i) => i !== index);
+        setPreparations(newPreparations);
+    };
+
     return (
         <Modal
             aria-labelledby="transition-modal-title"
@@ -112,64 +132,95 @@ export default function EditModal({ open, handleClose }) {
                     <Typography variant="h6" id="transition-modal-description" gutterBottom>
                         Nome
                     </Typography>
-                    <input type='text' style={{ ...styleInput }}></input>
+                    <input type='text' style={{ ...styleInput }} />
                     <Typography variant="h6" id="transition-modal-description" gutterBottom>
                         Descrição
                     </Typography>
                     <textarea style={{ ...styleTextDesc }}></textarea>
-                    <div style={{ ...styleDiv }}>
-                        <div>
-                            <Typography variant="h6" id="transition-modal-description" gutterBottom>
-                                Qtd.
-                            </Typography>
+                    
+                    <Typography variant="h6" id="transition-modal-description" gutterBottom>
+                        Ingredientes
+                    </Typography>
+                    {ingredients.map((ingredient, index) => (
+                        <div key={index} style={{ ...styleDiv, alignItems: 'center', marginBottom: '10px' }}>
+                            <input
+                                type='number'
+                                placeholder='Qtd.'
+                                style={{ ...styleInputQtd }}
+                                value={ingredient.quantity}
+                                onChange={(e) => {
+                                    const newIngredients = [...ingredients];
+                                    newIngredients[index].quantity = e.target.value;
+                                    setIngredients(newIngredients);
+                                }}
+                            />
+                            <input
+                                type='text'
+                                placeholder='Ingrediente'
+                                style={{ ...styleInput }}
+                                value={ingredient.name}
+                                onChange={(e) => {
+                                    const newIngredients = [...ingredients];
+                                    newIngredients[index].name = e.target.value;
+                                    setIngredients(newIngredients);
+                                }}
+                            />
                             <button
                                 style={styleBtnRemove.button}
+                                onClick={() => handleRemoveIngredient(index)}
                                 onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
                                 onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
                             >
-                                <img src={BtnRemove} alt="Botão de Remover" style={{ height: '100%', width: '100%' }} />
-                            </button>
-                            <input type='number' style={{ ...styleInputQtd }}></input>
-                        </div>
-                        <div>
-                            <Typography variant="h6" id="transition-modal-description" gutterBottom>
-                                Ingrediente
-                            </Typography>
-                            <input type='text' style={{ ...styleInput }}></input>
-                        </div>
-                        <div>
-                            <Typography variant="h6" id="transition-modal-description" gutterBottom>
-                                Modo de Preparo
-                            </Typography>
-                            <input type='text' style={{ ...styleInput }}></input>
-                            <button
-                                style={styleBtnRemove.button}
-                                onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
-                                onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
-                            >
-                                <img src={BtnRemove} alt="Botão de Rmover" style={{ height: '100%', width: '100%' }} />
+                                <img src={BtnRemove} alt="Remover Ingrediente" style={{ height: '100%', width: '100%' }} />
                             </button>
                         </div>
+                    ))}
+                    <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '10px' }}>
+                        <button
+                            style={styleBtn.button}
+                            onClick={handleAddIngredient}
+                            onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
+                            onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                        >
+                            <img src={BtnAdd} alt="Adicionar Ingrediente" style={{ height: '100%', width: '100%' }} />
+                        </button>
                     </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-                        <div>
+                    
+                    <Typography variant="h6" id="transition-modal-description" gutterBottom>
+                        Modos de Preparo
+                    </Typography>
+                    {preparations.map((preparation, index) => (
+                        <div key={index} style={{ ...styleDiv, alignItems: 'center', marginBottom: '10px' }}>
+                            <input
+                                type='text'
+                                placeholder='Modo de Preparo'
+                                style={{ ...styleInput }}
+                                value={preparation}
+                                onChange={(e) => {
+                                    const newPreparations = [...preparations];
+                                    newPreparations[index] = e.target.value;
+                                    setPreparations(newPreparations);
+                                }}
+                            />
                             <button
-                                style={styleBtn.button}
+                                style={styleBtnRemove.button}
+                                onClick={() => handleRemovePreparation(index)}
                                 onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
                                 onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
                             >
-                                <img src={BtnAdd} alt="Botão Adicionar" style={{ height: '100%', width: '100%' }} />
+                                <img src={BtnRemove} alt="Remover Modo de Preparo" style={{ height: '100%', width: '100%' }} />
                             </button>
                         </div>
-                        <div>
-                            <button
-                                style={styleBtn.button}
-                                onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
-                                onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
-                            >
-                                <img src={BtnAdd} alt="Botão Adicionar" style={{ height: '100%', width: '100%' }} />
-                            </button>
-                        </div>
+                    ))}
+                    <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '10px' }}>
+                        <button
+                            style={styleBtn.button}
+                            onClick={handleAddPreparation}
+                            onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
+                            onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                        >
+                            <img src={BtnAdd} alt="Adicionar Modo de Preparo" style={{ height: '100%', width: '100%' }} />
+                        </button>
                     </div>
 
                     <Button variant="contained" color="success">
