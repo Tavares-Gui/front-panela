@@ -10,7 +10,7 @@ import Trash from '../../assets/icon/trash.png'
 import Edit from '../../assets/icon/botao-editar.png'
 import Add from '../../assets/icon/botao-adicionar.png'
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
 import AddModal from '../../components/add/index.jsx'
@@ -30,27 +30,68 @@ const style = {
     p: 4,
 };
 
+import { api } from '../../services/api.jsx'
+
 export default function Home() {
     const [openAddModal, setOpenAddModal] = useState(false);
     const [openEditModal, setOpenEditModal] = useState(false);
     const [openViewModal, setOpenViewModal] = useState(false);
-    const [openDeleteModal, setOpenDeleteModal] = useState(false);
+    const [openDeleteModal, setOpenDeleteModal] = useState(false);  
+    const [loading, setLoading] = useState(false);
+    const [recipes, setRecipes] = useState([])
+    const [modal, setModal] = useState()
+
+    useEffect(() => {
+        const userId = sessionStorage.getItem('userId')
+        api.get(`/recipe?user=${userId}`).then((res) => {
+            setRecipes(res.data)
+            console.log(res.data)
+        }).catch((error) => {
+            console.log(error)
+        })
+    }, [])
 
     const handleOpenAddModal = () => setOpenAddModal(true);
     const handleCloseAddModal = () => setOpenAddModal(false);
 
-    const handleOpenEditModal = () => setOpenEditModal(true);
+    function handleOpenEditModal(index)
+    {
+        setOpenEditModal(true);
+        setModal(index)
+    }
     const handleCloseEditModal = () => setOpenEditModal(false);
+    const handleEdit = (recipeId) => {
+        const updatedRecipes = [...recipes].filter(recipe => recipe._id !== recipeId);
+        setRecipes(updatedRecipes);
+    };
 
-    const handleOpenViewModal = () => setOpenViewModal(true);
+    function handleOpenViewModal(index)
+    {
+        setOpenViewModal(true);
+        setModal(index)
+    }
     const handleCloseViewModal = () => setOpenViewModal(false);
 
-    const handleOpenDeleteModal = () => setOpenDeleteModal(true);
+    function handleOpenDeleteModal(index)
+    {
+        setOpenDeleteModal(true);
+        setModal(index)
+    }
     const handleCloseDeleteModal = () => setOpenDeleteModal(false);
-
+    const handleDelete = (recipeId) => {
+        const updatedRecipes = [...recipes].filter(recipe => recipe._id !== recipeId);
+        setRecipes(updatedRecipes);
+    };
 
     return (
         <>
+        {modal !== null && modal !== undefined &&
+            <ViewModal open={openViewModal} handleClose={handleCloseViewModal} props={recipes[modal]} close={() => setModal()}/>}
+        {modal !== null && modal !== undefined &&
+            <DeleteConfirmationModal open={openDeleteModal} handleClose={handleCloseDeleteModal} props={recipes[modal]} onDelete={handleDelete}/>}
+        {/* {modal !== null && modal !== undefined &&
+            <EditModal open={openEditModal} handleClose={handleCloseEditModal} props={recipes[modal]} onEdit={handleEdit}/>} */}
+
             <PageWrapper>
                 <Navbar>
                     <LogoContainer>
@@ -70,34 +111,33 @@ export default function Home() {
                 </DivTitle>
 
                 <DivCards>
-                    <Card>
-                        <CardTittle>
-                            <H2Card>Nome</H2Card>
-                            <ButtonGroup>
-                                <ButtonIcons onClick={handleOpenEditModal}>
-                                    <CardIcons src={Edit}></CardIcons>
-                                </ButtonIcons>
-                                <ButtonIcons onClick={handleOpenDeleteModal}>
-                                    <CardIcons src={Trash}></CardIcons>
-                                </ButtonIcons>
-                            </ButtonGroup>
-                        </CardTittle>
+                    {recipes.map((item, index) => (
+                        <Card key={item._id}>
+                            <CardTittle>
+                                <H2Card>{item.title}</H2Card>
+                                <ButtonGroup>
+                                    <ButtonIcons onClick={() => handleOpenEditModal(index)}>
+                                        <CardIcons src={Edit}></CardIcons>
+                                    </ButtonIcons>
+                                    <ButtonIcons onClick={() => handleOpenDeleteModal(index)}>
+                                        <CardIcons src={Trash}></CardIcons>
+                                    </ButtonIcons>
+                                </ButtonGroup>
+                            </CardTittle>
+                            <P>
+                                {item.description}
+                            </P>
 
-                        <P>
-                            Descrição
-                        </P>
-
-                        <CardButton onClick={handleOpenViewModal}>
-                            Ver Receita
-                        </CardButton>
-                    </Card>
+                            <CardButton onClick={() => handleOpenViewModal(index)}>
+                                Ver Receita
+                            </CardButton>   
+                        </Card>
+                        )
+                    )}
                 </DivCards>
             </PageWrapper>
 
-            <AddModal open={openAddModal} handleClose={handleCloseAddModal} />
-            <EditModal open={openEditModal} handleClose={handleCloseEditModal} />
-            <ViewModal open={openViewModal} handleClose={handleCloseViewModal} />
-            <DeleteConfirmationModal open={openDeleteModal} handleClose={handleCloseDeleteModal} />
+            <AddModal open={openAddModal} handleClose={handleCloseAddModal} props={sessionStorage.getItem('userId')} />
         </>
     );
 }

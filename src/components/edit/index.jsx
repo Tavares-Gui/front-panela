@@ -70,7 +70,37 @@ const styleBtn = {
     }
 };
 
-export default function EditModal({ open, handleClose }) {
+import { api } from '../../services/api.jsx'
+
+export default function EditModal({ open, handleClose, props, onEdit }) {
+
+    const [title, setTitle] = useState("")
+    const [description, setDescription] = useState("")
+    const [ingredients, setIngredients] = useState([])
+    const [prepare, setPrepare] = useState([])
+    const [qtd, setQtd] = useState("")
+
+    function handleEdit(batata)
+    {
+        let body = 
+        {
+            "_id": batata,
+            title,
+            description,
+            ingredients,
+            prepare
+        }
+        console.log(batata)
+        api.delete("/recipe/edit", { data: body }).then((res) => {
+            console.log(res)
+            // alert(res)
+            handleClose()
+            window.location.reload()
+        }).catch((error) => {
+            alert(error.response.data.message)
+        })
+    }
+
     return (
         <Modal
             aria-labelledby="transition-modal-title"
@@ -91,23 +121,23 @@ export default function EditModal({ open, handleClose }) {
                     <Typography variant="h6" id="transition-modal-description" gutterBottom>
                         Nome
                     </Typography>
-                    <input type='text' style={{ ...styleInput }}></input>
+                    <input type='text' style={{ ...styleInput }} value={title} onChange={(e) => setTitle(e.target.value)}></input>
                     <Typography variant="h6" id="transition-modal-description" gutterBottom>
                         Descrição
                     </Typography>
-                    <textarea style={{ ...styleTextDesc }}></textarea>
+                    <textarea style={{ ...styleTextDesc }} value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
                     <div style={{ ...styleDiv }}>
                         <div>
                             <Typography variant="h6" id="transition-modal-description" gutterBottom>
                                 Qtd.
                             </Typography>
-                            <input type='number' style={{ ...styleInputQtd }}></input>
+                            <input type='number' style={{ ...styleInputQtd }} onChange={(e) => setQtd(e.target.value)}></input>
                         </div>
                         <div>
                             <Typography variant="h6" id="transition-modal-description" gutterBottom>
                                 Ingrediente
                             </Typography>
-                            <input type='text' style={{ ...styleInput }}></input>
+                            <input type='text' style={{ ...styleInput }} onch></input>
                         </div>
                         <div>
                             <Typography variant="h6" id="transition-modal-description" gutterBottom>
@@ -123,7 +153,7 @@ export default function EditModal({ open, handleClose }) {
                                 onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
                                 onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
                             >
-                                <img src={BtnAdd} alt="Botão Adicionar" style={{ height: '100%', width: '100%' }} />
+                                <img src={BtnAdd} alt="Adicionar ingrediente" style={{ height: '100%', width: '100%' }} />
                             </button>
                         </div>
                         <div>
@@ -132,7 +162,7 @@ export default function EditModal({ open, handleClose }) {
                                 onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
                                 onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
                             >
-                                <img src={BtnAdd} alt="Botão Adicionar" style={{ height: '100%', width: '100%' }} />
+                                <img src={BtnAdd} alt="Adicionar preparo" style={{ height: '100%', width: '100%' }} />
                             </button>
                         </div>
                     </div>

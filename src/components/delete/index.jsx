@@ -15,7 +15,34 @@ const style = {
     textAlign: 'center',
 };
 
-export default function DeleteConfirmationModal({ open, handleClose, handleDelete }) {
+import { api } from '../../services/api.jsx'
+import { useNavigate } from "react-router-dom";
+
+export default function DeleteConfirmationModal({ open, handleClose, props, onDelete }) {
+    const navigate = useNavigate();
+
+    function handleDelete(batata)
+    {
+        console.log(batata)
+        api.delete("/recipe/delete", { data: { "_id": batata } }).then((res) => {
+            console.log(res)
+            // alert(res)
+            handleClose()
+            window.location.reload()
+        }).catch((error) => {
+            alert(error.response.data.message)
+        })
+    }
+
+    // const handleDelete = (recipeId) => {
+    //     api.delete("/recipe/delete", { data: { _id: recipeId } }).then((res) => {
+    //         onDelete(recipeId);
+    //         handleClose();
+    //     }).catch((error) => {
+    //         alert(error.response.data.message);
+    //     });
+    // };
+
     return (
         <Modal
             aria-labelledby="delete-confirmation-modal-title"
@@ -33,7 +60,7 @@ export default function DeleteConfirmationModal({ open, handleClose, handleDelet
                     <Typography variant="h4" id="delete-confirmation-modal-title" gutterBottom>
                         Tem certeza que gostaria de excluir esta receita?
                     </Typography>
-                    <Button variant="contained" color="error" onClick={handleDelete}>
+                    <Button variant="contained" color="error" onClick={() => handleDelete(props._id)}>
                         Excluir Receita
                     </Button>
                 </Box>

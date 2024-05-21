@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Backdrop, Box, Modal, Fade, Typography } from '@mui/material';
 
@@ -14,7 +14,8 @@ const style = {
     p: 4,
 };
 
-export default function ViewModal({ open, handleClose }) {
+export default function ViewModal({ open, handleClose, props }) {
+    console.log(props)
     return (
         <Modal
             aria-labelledby="transition-modal-title"
@@ -30,25 +31,33 @@ export default function ViewModal({ open, handleClose }) {
             <Fade in={open}>
                 <Box sx={{ ...style, textAlign: 'center', overflowY: 'auto', maxHeight: '90vh' }}>
                     <Typography variant="h3" id="transition-modal-title" gutterBottom>
-                        Nome
+                        {props.title}
                     </Typography>
                     <Typography variant="h5" id="transition-modal-description" gutterBottom>
                         Descrição
                     </Typography>
                     <Typography variant="body1" sx={{ mt: 2 }}>
-                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+                        {props.description}
                     </Typography>
                     <Typography variant="h5" gutterBottom>
                         Ingredientes
                     </Typography>
                     <ul style={{ textAlign: 'left', listStylePosition: 'inside' }}>
-                        <li>Ingrediente 1</li>
+                        {props.ingredients.map((item, index) => {
+                            return(
+                                    <li key={index}>{item.qtd} {item.ingredient}</li>
+                            )
+                        })}
                     </ul>
                     <Typography variant="h5" gutterBottom>
                         Modo de Preparo
                     </Typography>
                     <ul style={{ textAlign: 'left', listStylePosition: 'inside' }}>
-                        <li>Passo 1</li>
+                        {props.prepare.map((item, index) => {
+                            return(
+                                <li key={index}>{item}</li>
+                            )
+                        })}
                     </ul>
                 </Box>
             </Fade>

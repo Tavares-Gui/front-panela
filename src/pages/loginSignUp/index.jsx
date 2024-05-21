@@ -42,7 +42,7 @@ export default function LoginSignUp() {
         api.post("", jsonLogin).then((res) => {
             console.log(res)
             sessionStorage.setItem("userId", res.data.userId);
-            // navigate('/home')
+            navigate('/home')
         }).catch((error) => {
             alert(error.response.data.message)
         })
