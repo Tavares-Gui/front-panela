@@ -7,11 +7,17 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 600,
+    width: '90%',
+    maxWidth: 600,
     bgcolor: 'background.paper',
     borderRadius: '20px',
     boxShadow: 24,
     p: 4,
+    '@media (min-width:600px)': {
+        width: 600,
+    },
+    overflowY: 'auto',
+    maxHeight: '90vh',
 };
 
 export default function ViewModal({ open, handleClose }) {

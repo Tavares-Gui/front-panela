@@ -7,12 +7,16 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
+    width: '80%',
+    maxWidth: 400,
     bgcolor: 'background.paper',
     borderRadius: '20px',
     boxShadow: 24,
     p: 4,
     textAlign: 'center',
+    '@media (min-width:600px)': {
+        width: 400,
+    },
 };
 
 export default function DeleteConfirmationModal({ open, handleClose, handleDelete }) {
