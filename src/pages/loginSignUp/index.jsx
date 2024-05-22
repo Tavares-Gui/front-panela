@@ -40,7 +40,6 @@ export default function LoginSignUp() {
         }
 
         api.post("", jsonLogin).then((res) => {
-            console.log(res)
             sessionStorage.setItem("userId", res.data.userId);
             navigate('/home')
         }).catch((error) => {

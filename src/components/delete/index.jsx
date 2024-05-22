@@ -22,9 +22,7 @@ export default function DeleteConfirmationModal({ open, handleClose, props }) {
 
     function handleDelete(batata)
     {
-        console.log(batata)
         api.delete("/recipe/delete", { data: { "_id": batata } }).then((res) => {
-            console.log(res)
             // alert(res)
             handleClose()
             window.location.reload()

@@ -112,7 +112,6 @@ export default function AddModal({ open, handleClose, props }) {
             "user": props
         };
         api.post("/recipe/create", body).then((res) => {
-            console.log(res);
             handleClose();
             window.location.reload();
         }).catch((error) => {

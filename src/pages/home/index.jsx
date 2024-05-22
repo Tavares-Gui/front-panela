@@ -85,8 +85,8 @@ export default function Home() {
             <ViewModal open={openViewModal} handleClose={handleCloseViewModal} props={recipes[modal]} close={() => setModal()}/>}
         {modal !== null && modal !== undefined &&
             <DeleteConfirmationModal open={openDeleteModal} handleClose={handleCloseDeleteModal} props={recipes[modal]}/>}
-        {/* {modal !== null && modal !== undefined &&
-            <EditModal open={openEditModal} handleClose={handleCloseEditModal} props={recipes[modal]} onEdit={handleEdit}/>} */}
+        {modal !== null && modal !== undefined &&
+            <EditModal open={openEditModal} handleClose={handleCloseEditModal} id={recipes[modal]._id} onEdit={handleEdit}/>}
 
             <PageWrapper>
                 <Navbar>
