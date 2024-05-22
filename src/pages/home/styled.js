@@ -146,6 +146,7 @@ export const CardButton = styled.button`
     border-radius: 20px;
     transition: border-color 0.5s;
     padding: 10px;
+    background-color: lightgray;
 
     &:hover {
         border-color: gray;

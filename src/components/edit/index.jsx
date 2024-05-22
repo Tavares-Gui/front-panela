@@ -9,18 +9,23 @@ const styleModal = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 600,
+    width: '90%',
+    maxWidth: 600,
     bgcolor: 'background.paper',
     borderRadius: '20px',
     boxShadow: 24,
     p: 4,
     textAlign: 'center',
     overflowY: 'auto',
-    maxHeight: '90vh'
+    maxHeight: '90vh',
+    '@media (min-width:600px)': {
+        width: 600,
+    },
 };
 
 const styleInput = {
-    width: 200,
+    width: '100%',
+    maxWidth: 200,
     height: 30,
     paddingLeft: 10,
     paddingRight: 10,
@@ -41,7 +46,8 @@ const styleInputQtd = {
 
 const styleTextDesc = {
     height: 80,
-    width: 400,
+    width: '100%',
+    maxWidth: 400,
     paddingLeft: 10,
     paddingRight: 10,
     border: 'none',
@@ -52,7 +58,9 @@ const styleTextDesc = {
 const styleDiv = {
     display: 'flex',
     justifyContent: 'space-between',
-    textAlign: 'center'
+    alignItems: 'center',
+    textAlign: 'center',
+    marginBottom: '10px'
 };
 
 const styleBtn = {
@@ -73,10 +81,6 @@ const styleBtn = {
 
 const styleBtnRemove = {
     button: {
-        marginTop: 0,
-        marginBottom: 0,
-        marginRight: 5,
-        marginLeft: 5,
         height: '16px',
         width: '16px',
         border: 'none',
