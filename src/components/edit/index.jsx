@@ -90,9 +90,27 @@ const styleBtnRemove = {
     }
 };
 
-export default function EditModal({ open, handleClose }) {
-    const [ingredients, setIngredients] = useState([{ quantity: '', name: '' }]);
-    const [preparations, setPreparations] = useState(['']);
+export default function EditModal({ open, handleClose, props }) {
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [ingred, setIngred] = useState("");
+    const [prep, setPrep] = useState("");
+    const [qtd, setQtd] = useState("");
+    const [ingredients, setIngredients] = useState([]);
+    const [prepare, setPrepare] = useState([]);
+
+    function handleEdit(batata)
+    {
+        console.log(batata)
+        api.put("/recipe/update", { data: { "_id": batata } }).then((res) => {
+            console.log(res)
+            // alert(res)
+            handleClose()
+            window.location.reload()
+        }).catch((error) => {
+            alert(error.response.data.message)
+        })
+    }
 
     const handleAddIngredient = () => {
         setIngredients([...ingredients, { quantity: '', name: '' }]);

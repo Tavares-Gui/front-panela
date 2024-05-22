@@ -52,7 +52,9 @@ const styleTextDesc = {
 
 const styleDiv = {
     display: 'flex',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    flexWrap: 'wrap',
+    gap: '10px'
 };
 
 const styleBtn = {
@@ -90,27 +92,68 @@ const styleBtnRemove = {
     }
 };
 
-export default function AddModal({ open, handleClose }) {
-    const [ingredients, setIngredients] = useState([{ quantity: '', name: '' }]);
-    const [preparations, setPreparations] = useState(['']);
+import { api } from '../../services/api.jsx';
 
-    const handleAddIngredient = () => {
-        setIngredients([...ingredients, { quantity: '', name: '' }]);
-    };
+export default function AddModal({ open, handleClose, props }) {
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [ingred, setIngred] = useState("");
+    const [prep, setPrep] = useState("");
+    const [qtd, setQtd] = useState("");
+    const [ingredients, setIngredients] = useState([]);
+    const [prepare, setPrepare] = useState([]);
 
-    const handleRemoveIngredient = (index) => {
-        const newIngredients = ingredients.filter((_, i) => i !== index);
+    function handleAdd() {
+        let body = {
+            title,
+            description,
+            ingredients,
+            prepare,
+            "user": props
+        };
+        api.post("/recipe/create", body).then((res) => {
+            console.log(res);
+            handleClose();
+            window.location.reload();
+        }).catch((error) => {
+            console.log(body);
+            console.log(error);
+            alert(error.response.data.message);
+        });
+    }
+
+    function handleAddIng() {
+        setIngredients([...ingredients, { qtd, ingredient: ingred }]);
+        setQtd('');
+        setIngred('');
+    }
+
+    function handleAddPrep() {
+        setPrepare([...prepare, prep]);
+        setPrep('');
+    }
+
+    function handleIngredientChange(index, field, value) {
+        const newIngredients = ingredients.map((item, i) => (
+            i === index ? { ...item, [field]: value } : item
+        ));
         setIngredients(newIngredients);
-    };
+    }
 
-    const handleAddPreparation = () => {
-        setPreparations([...preparations, '']);
-    };
+    function handlePrepareChange(index, value) {
+        const newPrepare = prepare.map((item, i) => (
+            i === index ? value : item
+        ));
+        setPrepare(newPrepare);
+    }
 
-    const handleRemovePreparation = (index) => {
-        const newPreparations = preparations.filter((_, i) => i !== index);
-        setPreparations(newPreparations);
-    };
+    function handleRemoveIng(index) {
+        setIngredients(ingredients.filter((_, i) => i !== index));
+    }
+
+    function handleRemovePrep(index) {
+        setPrepare(prepare.filter((_, i) => i !== index));
+    }
 
     return (
         <Modal
@@ -132,81 +175,67 @@ export default function AddModal({ open, handleClose }) {
                     <Typography variant="h6" id="transition-modal-description" gutterBottom>
                         Nome
                     </Typography>
-                    <input type='text' style={{ ...styleInput }} />
+                    <input type='text' style={{ ...styleInput }} value={title} onChange={(e) => setTitle(e.target.value)}></input>
                     <Typography variant="h6" id="transition-modal-description" gutterBottom>
                         Descrição
                     </Typography>
-                    <textarea style={{ ...styleTextDesc }}></textarea>
-                    
+                    <textarea style={{ ...styleTextDesc }} value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
+
                     <Typography variant="h6" id="transition-modal-description" gutterBottom>
                         Ingredientes
                     </Typography>
-                    {ingredients.map((ingredient, index) => (
-                        <div key={index} style={{ ...styleDiv, alignItems: 'center', marginBottom: '10px' }}>
-                            <input
-                                type='number'
-                                placeholder='Qtd.'
-                                style={{ ...styleInputQtd }}
-                                value={ingredient.quantity}
-                                onChange={(e) => {
-                                    const newIngredients = [...ingredients];
-                                    newIngredients[index].quantity = e.target.value;
-                                    setIngredients(newIngredients);
-                                }}
-                            />
-                            <input
-                                type='text'
-                                placeholder='Ingrediente'
-                                style={{ ...styleInput }}
-                                value={ingredient.name}
-                                onChange={(e) => {
-                                    const newIngredients = [...ingredients];
-                                    newIngredients[index].name = e.target.value;
-                                    setIngredients(newIngredients);
-                                }}
-                            />
-                            <button
-                                style={styleBtnRemove.button}
-                                onClick={() => handleRemoveIngredient(index)}
-                                onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
-                                onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
-                            >
-                                <img src={BtnRemove} alt="Remover Ingrediente" style={{ height: '100%', width: '100%' }} />
-                            </button>
-                        </div>
-                    ))}
+                        {ingredients.map((item, index) => (
+                            <div key={index} style={{ ...styleDiv, alignItems: 'center', marginBottom: '10px' }}>
+                                    <input
+                                        type='number'
+                                        placeholder='Qtd.'
+                                        style={{ ...styleInputQtd }}
+                                        value={item.qtd}
+                                        onChange={(e) => handleIngredientChange(index, 'qtd', e.target.value)}
+                                    />
+                                    <input
+                                        type='text'
+                                        placeholder='Ingrediente'
+                                        style={{ ...styleInput }}
+                                        value={item.ingredient}
+                                        onChange={(e) => handleIngredientChange(index, 'ingredient', e.target.value)}
+                                    />
+                                    <button
+                                        style={styleBtnRemove.button}
+                                        onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
+                                        onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                                        onClick={() => handleRemoveIng(index)}
+                                    >
+                                        <img src={BtnRemove} alt="Remover Ingrediente" style={{ height: '100%', width: '100%' }} />
+                                    </button>
+                            </div>
+                        ))}
                     <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '10px' }}>
                         <button
                             style={styleBtn.button}
-                            onClick={handleAddIngredient}
                             onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
                             onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                            onClick={handleAddIng}
                         >
                             <img src={BtnAdd} alt="Adicionar Ingrediente" style={{ height: '100%', width: '100%' }} />
                         </button>
                     </div>
-                    
                     <Typography variant="h6" id="transition-modal-description" gutterBottom>
                         Modos de Preparo
                     </Typography>
-                    {preparations.map((preparation, index) => (
+                    {prepare.map((item, index) => (
                         <div key={index} style={{ ...styleDiv, alignItems: 'center', marginBottom: '10px' }}>
                             <input
                                 type='text'
                                 placeholder='Modo de Preparo'
                                 style={{ ...styleInput }}
-                                value={preparation}
-                                onChange={(e) => {
-                                    const newPreparations = [...preparations];
-                                    newPreparations[index] = e.target.value;
-                                    setPreparations(newPreparations);
-                                }}
+                                value={item} onChange={(e) => handlePrepareChange(index, e.target.value)}
                             />
                             <button
                                 style={styleBtnRemove.button}
-                                onClick={() => handleRemovePreparation(index)}
                                 onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
                                 onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                                onClick={() => handleRemovePrep(index)}
                             >
                                 <img src={BtnRemove} alt="Remover Modo de Preparo" style={{ height: '100%', width: '100%' }} />
                             </button>
@@ -215,7 +244,7 @@ export default function AddModal({ open, handleClose }) {
                     <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '10px' }}>
                         <button
                             style={styleBtn.button}
-                            onClick={handleAddPreparation}
+                            onClick={handleAddPrep}
                             onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
                             onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
                         >
@@ -223,7 +252,7 @@ export default function AddModal({ open, handleClose }) {
                         </button>
                     </div>
 
-                    <Button variant="contained" color="success">
+                    <Button variant="contained" color="success" onClick={handleAdd}>
                         Adicionar Receita
                     </Button>
                 </Box>
